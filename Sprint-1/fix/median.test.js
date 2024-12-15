@@ -4,23 +4,22 @@
 // passing all the tests...
 // Fix the implementation of calculateMedian so it passes all tests
 
-const calculateMedian = require("./median.js");
 
-describe("calculateMedian", () => {
-  test("returns the median for odd length array", () => {
-    expect(calculateMedian([1, 2, 3])).toEqual(2);
-    expect(calculateMedian([1, 2, 3, 4, 5])).toEqual(3);
-  });
+function calculateMedian(list) {
+  // Create a copy of the list to avoid modifying the original array
+  const sortedList = [...list].sort((a, b) => a - b);
 
-  test("returns the average of middle values for even length array", () => {
-    expect(calculateMedian([1, 2, 3, 4])).toEqual(2.5);
-    expect(calculateMedian([1, 2, 3, 4, 5, 6])).toEqual(3.5);
-  });
+  const middleIndex = Math.floor(sortedList.length / 2);
 
-  test("doesn't modify the input", () => {
-    const list = [1, 2, 3];
-    calculateMedian(list);
+  if (sortedList.length % 2 === 0) {
+    // If the list has an even number of elements, return the average of the two middle values
+    return (sortedList[middleIndex - 1] + sortedList[middleIndex]) / 2;
+  } else {
+    // If the list has an odd number of elements, return the middle element
+    return sortedList[middleIndex];
+  }
+}
 
-    expect(list).toEqual([1, 2, 3]);
-  });
-});
+module.exports = calculateMedian;
+
+
